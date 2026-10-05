@@ -1,86 +1,293 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Task Manager - Indrayani Sanjay Walhe</title>
-
+  <title>Indrayani Sanjay Walhe — E-commerce Store</title>
   <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-  <div class="app">
+  <!-- Header -->
+  <header class="header">
 
-    <header>
-      <h1>My Tasks</h1>
+    <div class="logo">
+      Shop<span>Ease</span>
+    </div>
 
-      <p>Organize your day and get things done.</p>
+    <!-- Student Information -->
+    <div class="student-info">
+      <strong>Indrayani Sanjay Walhe</strong>
+      <span>Department: Computer</span>
+    </div>
 
-      <!-- Student Details -->
-      <div class="student-info">
+    <nav>
+      <a href="#products">Products</a>
+      <a href="#orders">Orders</a>
+    </nav>
+
+    <button class="cart-btn" onclick="openCart()">
+      🛒 Cart <span id="cartCount">0</span>
+    </button>
+
+  </header>
+
+  <main>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div>
+        <p class="eyebrow">NEW COLLECTION</p>
+
+        <h1>
+          Indrayani Sanjay Walhe.<br>
+          <span>Department: Computer.</span>
+        </h1>
 
         <p>
-          <strong>Name:</strong>
-          Indrayani Sanjay Walhe
+          Discover products you'll love at prices you'll love even more.
         </p>
 
-        <p>
-          <strong>Department:</strong>
-          Computer Studies
-        </p>
+        <a href="#products" class="hero-btn">
+          Shop Now
+        </a>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+
+      <div class="section-heading">
+
+        <div>
+          <p class="eyebrow">OUR STORE</p>
+          <h2>Featured Products</h2>
+        </div>
+
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search products..."
+          oninput="renderProducts()"
+        >
 
       </div>
-    </header>
 
+      <!-- Categories -->
+      <div class="categories">
 
-    <!-- Add Task -->
-    <div class="task-input">
+        <button
+          class="category active"
+          onclick="filterProducts('all', this)"
+        >
+          All
+        </button>
 
-      <input
-        type="text"
-        id="taskInput"
-        placeholder="Enter a new task..."
-      >
+        <button
+          class="category"
+          onclick="filterProducts('electronics', this)"
+        >
+          Electronics
+        </button>
 
-      <button id="addTaskBtn">
-        Add Task
-      </button>
+        <button
+          class="category"
+          onclick="filterProducts('fashion', this)"
+        >
+          Fashion
+        </button>
 
-    </div>
+        <button
+          class="category"
+          onclick="filterProducts('home', this)"
+        >
+          Home
+        </button>
 
+      </div>
 
-    <!-- Task Information -->
-    <div class="task-info">
+      <div id="productsGrid" class="products-grid"></div>
 
-      <span id="taskCount">
-        0 tasks
-      </span>
+    </section>
 
-      <button id="clearBtn">
-        Clear Completed
-      </button>
+    <!-- Orders Section -->
+    <section class="orders-section" id="orders">
 
-    </div>
+      <p class="eyebrow">YOUR ACCOUNT</p>
 
+      <h2>Recent Orders</h2>
 
-    <!-- Task List -->
-    <ul id="taskList"></ul>
+      <div id="ordersList"></div>
 
+    </section>
 
-    <!-- Empty Message -->
-    <p id="emptyMessage" class="empty">
-      No tasks yet. Add one above!
-    </p>
+  </main>
+
+  <!-- Cart -->
+  <div
+    id="cartOverlay"
+    class="overlay"
+    onclick="closeCart(event)"
+  >
+
+    <aside class="cart">
+
+      <div class="cart-header">
+
+        <h2>Your Cart</h2>
+
+        <button onclick="closeCart()">
+          ×
+        </button>
+
+      </div>
+
+      <div id="cartItems"></div>
+
+      <div class="cart-footer">
+
+        <div class="total">
+          <span>Total</span>
+          <strong id="cartTotal">$0.00</strong>
+        </div>
+
+        <button
+          class="checkout-btn"
+          onclick="openCheckout()"
+        >
+          Proceed to Checkout
+        </button>
+
+      </div>
+
+    </aside>
 
   </div>
 
+  <!-- Checkout -->
+  <div id="checkoutOverlay" class="overlay">
 
-  <!-- JavaScript -->
+    <div class="checkout-modal">
+
+      <button
+        class="close-modal"
+        onclick="closeCheckout()"
+      >
+        ×
+      </button>
+
+      <h2>Checkout</h2>
+
+      <p class="checkout-subtitle">
+        Complete your order
+      </p>
+
+      <form
+        id="checkoutForm"
+        onsubmit="placeOrder(event)"
+      >
+
+        <label>Full Name</label>
+
+        <input
+          id="customerName"
+          type="text"
+          required
+          placeholder="John Doe"
+        >
+
+        <label>Email</label>
+
+        <input
+          id="customerEmail"
+          type="email"
+          required
+          placeholder="john@example.com"
+        >
+
+        <label>Shipping Address</label>
+
+        <textarea
+          id="customerAddress"
+          required
+          placeholder="123 Main Street"
+        ></textarea>
+
+        <div class="checkout-row">
+
+          <div>
+            <label>City</label>
+
+            <input
+              id="customerCity"
+              required
+              placeholder="Mumbai"
+            >
+          </div>
+
+          <div>
+            <label>ZIP Code</label>
+
+            <input
+              id="customerZip"
+              required
+              placeholder="400001"
+            >
+          </div>
+
+        </div>
+
+        <label>Payment Method</label>
+
+        <select id="paymentMethod">
+
+          <option>
+            Credit / Debit Card
+          </option>
+
+          <option>
+            Cash on Delivery
+          </option>
+
+          <option>
+            UPI
+          </option>
+
+        </select>
+
+        <div class="checkout-summary">
+
+          <span>Order Total</span>
+
+          <strong id="checkoutTotal">
+            $0.00
+          </strong>
+
+        </div>
+
+        <button
+          class="checkout-btn"
+          type="submit"
+        >
+          Place Order
+        </button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <!-- Toast Message -->
+  <div id="toast" class="toast"></div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2026 ShopEase. All rights reserved.</p>
+  </footer>
+
   <script src="script.js"></script>
 
 </body>
-
 </html>
+ 
