@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Task Manager - Indrayani Sanjay Walhe</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <header>
+      <h1>My Tasks</h1>
+
+      <p>Organize your day and get things done.</p>
+
+      <!-- Student Details -->
+      <div class="student-info">
+
+        <p>
+          <strong>Name:</strong>
+          Indrayani Sanjay Walhe
+        </p>
+
+        <p>
+          <strong>Department:</strong>
+          Computer Studies
+        </p>
+
+      </div>
+    </header>
+
+
+    <!-- Add Task -->
+    <div class="task-input">
+
+      <input
+        type="text"
+        id="taskInput"
+        placeholder="Enter a new task..."
+      >
+
+      <button id="addTaskBtn">
+        Add Task
+      </button>
+
+    </div>
+
+
+    <!-- Task Information -->
+    <div class="task-info">
+
+      <span id="taskCount">
+        0 tasks
+      </span>
+
+      <button id="clearBtn">
+        Clear Completed
+      </button>
+
+    </div>
+
+
+    <!-- Task List -->
+    <ul id="taskList"></ul>
+
+
+    <!-- Empty Message -->
+    <p id="emptyMessage" class="empty">
+      No tasks yet. Add one above!
+    </p>
+
+  </div>
+
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+
+</body>
+
+</html>
